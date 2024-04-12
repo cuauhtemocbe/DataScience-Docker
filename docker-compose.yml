@@ -1,0 +1,14 @@
+version: "1.0"
+services:
+  dev-containers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "/bin/bash"
+    stdin_open: true
+    tty: true
+    container_name: dev-containers
+    volumes:
+      - .:/workspace
+    # env_file:
+    #   - .env
