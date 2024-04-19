@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dev-container"
 version = "0.1.0"
-description = ""
+description = "Ambiente para desarrollar proyectos de Ciencia de Datos"
 authors = ["Kuautli <cuauhtemocbe@gmail.com>"]
 readme = "README.md"
 
