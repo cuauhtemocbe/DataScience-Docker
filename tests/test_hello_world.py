@@ -1,5 +1,8 @@
 import pytest
 
 @pytest.mark.asyncio
-def print_hello():
-    print("Hello, world!")
+def test_print_hello():
+
+    hello = "Hello, world!" 
+
+    assert hello == "Hello, world!"
