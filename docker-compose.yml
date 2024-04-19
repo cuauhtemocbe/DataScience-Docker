@@ -10,5 +10,5 @@ services:
     container_name: dev-containers
     volumes:
       - .:/workspace
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
