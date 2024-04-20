@@ -13,6 +13,5 @@ Tener inslado:
 1. Clonar el repo
 2. Abrir el repo en VSC
 3. Instalar la extensión Dev Containers en VSC
-4. Shif + Ctrl + P & >Dev Containers: Rebuild and Reopen in Container
-
+4. Abrir el Command Palette en VSC (Shif + Ctrl + P) y usar el >Dev Containers: Rebuild and Reopen in Container para crear el contendor y abrir VSC en el contenedor.
    
