@@ -14,4 +14,4 @@ Tener instalado:
 2. Abrir el repo en VSC
 3. Instalar la extensión Dev Containers en VSC
 4. Abrir el Command Palette en VSC (Shif + Ctrl + P) y usar el >Dev Containers: Rebuild and Reopen in Container para crear el contendor y abrir VSC en el contenedor.
-   
+5. Prueba el jupyter notebook my-notebook en la carpeta notebooks
