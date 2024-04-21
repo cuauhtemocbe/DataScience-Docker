@@ -5,7 +5,7 @@ Es un repositorio para poder trabajar proyectos de Ciencia de Datos en un conten
 El repo permite desarrollar, testear y ejecutar notebooks de Jupyter para el análisis de datos y modelado mediante bibliotecas como: pandas y scikit-learn.
 
 # Requisitos
-Tener inslado:
+Tener instalado:
 1. Visual Studio Code (VSC)
 2. Docker
 
