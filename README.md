@@ -1,17 +1,63 @@
-# Docker para Ciencia de Datos
+## Acerca de este Repositorio
 
-Es un repositorio para poder trabajar proyectos de Ciencia de Datos en un contenedor de **Docker** y **Poetry** para el manejo de bibliotecas. 
+Este repositorio utiliza Docker para configurar un entorno de Python 3.10.11 orientado a **Ciencia de Datos** con Jupyter, facilitando la gestión de bibliotecas mediante Poetry.
 
-El repo permite desarrollar, testear y ejecutar notebooks de Jupyter para el análisis de datos y modelado mediante bibliotecas como: pandas y scikit-learn.
+## Requisitos Previos
 
-# Requisitos
-Tener instalado:
-1. Visual Studio Code (VSC)
-2. Docker
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
-# Pasos a seguir
-1. Clonar el repo
-2. Abrir el repo en VSC
-3. Instalar la extensión Dev Containers en VSC
-4. Abrir el Command Palette en VSC (Shif + Ctrl + P) y usar el >Dev Containers: Rebuild and Reopen in Container para crear el contendor y abrir VSC en el contenedor.
-5. Prueba el jupyter notebook my-notebook en la carpeta notebooks
+1. **Docker**: [Guía de instalación de Docker](https://docs.docker.com/engine/install/)
+2. **Git**: [Guía de instalación de Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+3. **Visual Studio Code (VSC)**: [Descargar Visual Studio Code](https://code.visualstudio.com/download)
+
+La instalación de Visual Studio Code es opcional, pero se recomienda especialmente si tienes experiencia programando. Si eres principiante, puedes optar por no instalarlo.
+
+## Instrucciones de Instalación
+
+### Clonar el Repositorio
+
+1. Elige una ubicación en tu computadora para clonar el repositorio. Abre tu terminal y ejecuta el siguiente comando:
+
+    ```bash
+    git clone https://github.com/cuauhtemocbe/Dev-Containers-Template.git
+    ```
+
+    Este comando creará una carpeta llamada **Dev-Containers-Template** en tu máquina.
+
+### Configuración con Visual Studio Code (Opción Avanzada)
+
+Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, sigue estos pasos:
+
+1. Abre Visual Studio Code y selecciona `File > Open Folder`. Luego elige la carpeta **Dev-Containers-Template** para abrir el repositorio.
+2. Instala la extensión **Dev Containers** desde el Marketplace de VSC.
+3. Abre la Paleta de Comandos (Command Palette) con `Shift + Ctrl + P` y escribe `Dev Containers: Rebuild and Reopen in Container`. Ejecútalo para construir y levantar el contenedor Docker.
+4. En el explorador de archivos (`Ctrl + Shift + E`), navega hasta la carpeta `notebooks` y abre el archivo `0. Validar-ambiente.ipynb`.
+5. Ejecuta el notebook; al inicio te solicitará seleccionar un kernel, elige Python 3.10.11.
+
+### Configuración con Jupyter Lab (Opción Sencilla)
+
+Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
+
+1. Desde la terminal, dentro de la carpeta **Dev-Containers-Template**, ejecuta el siguiente comando para construir y levantar el contenedor:
+
+    ```bash
+    docker compose up -d
+    ```
+
+2. Luego, ejecuta el siguiente comando para ingresar al contenedor y utilizar la terminal:
+
+    ```bash
+    docker exec -it Dev-Containers-Template bash
+    ```
+
+3. Dentro del contenedor, inicia el servicio de Jupyter Lab con el siguiente comando:
+
+    ```bash
+    jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    ```
+
+4. Finalmente, abre el siguiente enlace en tu navegador: [http://localhost:8888/lab/tree/notebooks](http://localhost:8888/lab/tree/notebooks)
+
+## Enlaces de Interés
+
+- **Poetry**: [Sitio oficial de Poetry](https://python-poetry.org/)
