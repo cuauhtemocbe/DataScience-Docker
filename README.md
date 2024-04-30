@@ -30,16 +30,16 @@ La instalación de Visual Studio Code es opcional, pero se recomienda especialme
 1. Elige una ubicación en tu computadora para clonar el repositorio. Abre tu terminal y ejecuta el siguiente comando:
 
     ```bash
-    git clone https://github.com/cuauhtemocbe/Dev-Containers-Template.git
+    git clone https://github.com/cuauhtemocbe/DataScience-Docker.git
     ```
 
-    Este comando creará una carpeta llamada **Dev-Containers-Template** en tu máquina.
+    Este comando creará una carpeta llamada **DataScience-Docker** en tu máquina.
 
 ### Configuración con Visual Studio Code (Opción Avanzada)
 
 Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, sigue estos pasos:
 
-1. Abre Visual Studio Code y selecciona `File > Open Folder`. Luego elige la carpeta **Dev-Containers-Template** para abrir el repositorio.
+1. Abre Visual Studio Code y selecciona `File > Open Folder`. Luego elige la carpeta **DataScience-Docker** para abrir el repositorio.
 2. Instala la extensión **Dev Containers** desde el Marketplace de VSC.
 3. Abre la Paleta de Comandos (Command Palette) con `Shift + Ctrl + P` y escribe `Dev Containers: Rebuild and Reopen in Container`. Ejecútalo para construir y levantar el contenedor Docker.
 4. En el explorador de archivos (`Ctrl + Shift + E`), navega hasta la carpeta `notebooks` y abre el archivo `0. Validar-ambiente.ipynb`.
@@ -49,7 +49,7 @@ Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, 
 
 Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
 
-1. Desde la terminal, dentro de la carpeta **Dev-Containers-Template**, ejecuta el siguiente comando para construir y levantar el contenedor:
+1. Desde la terminal, dentro de la carpeta **DataScience-Docker**, ejecuta el siguiente comando para construir y levantar el contenedor:
 
     ```bash
     docker compose up -d
@@ -58,7 +58,7 @@ Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
 2. Luego, ejecuta el siguiente comando para ingresar al contenedor y utilizar la terminal:
 
     ```bash
-    docker exec -it Dev-Containers-Template bash
+    docker exec -it DataScience-Docker bash
     ```
 
 3. Dentro del contenedor, inicia el servicio de Jupyter Lab con el siguiente comando:
@@ -76,7 +76,7 @@ Si deseas ampliar las capacidades de tu entorno de desarrollo añadiendo nuevas 
 1. Accede al contenedor ejecutando el siguiente comando en tu terminal:
 
     ```bash
-    docker exec -it Dev-Containers-Template bash
+    docker exec -it DataScience-Docker bash
     ```
 
 2. Una vez dentro del contenedor, puedes utilizar Poetry para agregar nuevas bibliotecas. Por ejemplo, si deseas agregar la popular biblioteca de visualización de datos, seaborn, simplemente ejecuta:
