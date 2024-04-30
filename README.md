@@ -60,7 +60,7 @@ Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
 2. Luego, ejecuta el siguiente comando para ingresar al contenedor y utilizar la terminal:
 
     ```bash
-    docker exec -it DataScience-Docker bash
+    docker exec -it datascience-docker bash
     ```
 
 3. Dentro del contenedor, inicia el servicio de Jupyter Lab con el siguiente comando:
@@ -78,7 +78,7 @@ Si deseas ampliar las capacidades de tu entorno de desarrollo añadiendo nuevas 
 1. Accede al contenedor ejecutando el siguiente comando en tu terminal:
 
     ```bash
-    docker exec -it DataScience-Docker bash
+    docker exec -it datascience-docker bash
     ```
 
 2. Una vez dentro del contenedor, puedes utilizar Poetry para agregar nuevas bibliotecas. Por ejemplo, si deseas agregar la popular biblioteca de visualización de datos, seaborn, simplemente ejecuta:
