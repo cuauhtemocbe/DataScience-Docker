@@ -1,13 +1,13 @@
 version: "3.9"
 services:
-  dev-containers:
+  datascience-docker:
     build:
       context: .
       dockerfile: Dockerfile
     command: "/bin/bash"
     stdin_open: true
     tty: true
-    container_name: dev-containers
+    container_name: datascience-docker
     volumes:
       - .:/workspace
     env_file:
