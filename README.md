@@ -69,6 +69,24 @@ Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
 
 4. Finalmente, abre el siguiente enlace en tu navegador: [http://localhost:8888/lab/tree/notebooks](http://localhost:8888/lab/tree/notebooks)
 
+## Agregando nuevas bibliotecas
+
+Si deseas ampliar las capacidades de tu entorno de desarrollo añadiendo nuevas bibliotecas, sigue estos sencillos pasos:
+
+1. Accede al contenedor ejecutando el siguiente comando en tu terminal:
+
+    ```bash
+    docker exec -it Dev-Containers-Template bash
+    ```
+
+2. Una vez dentro del contenedor, puedes utilizar Poetry para agregar nuevas bibliotecas. Por ejemplo, si deseas agregar la popular biblioteca de visualización de datos, seaborn, simplemente ejecuta:
+
+    ```bash
+    poetry add seaborn
+    ```
+
+Con estos pasos, podrás expandir rápidamente las funcionalidades de tu entorno de desarrollo para satisfacer tus necesidades específicas.
+
 ## Enlaces de Interés
 
 - **Poetry**: [Sitio oficial de Poetry](https://python-poetry.org/)
