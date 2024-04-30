@@ -1,6 +1,17 @@
 ## Acerca de este Repositorio
 
-Este repositorio utiliza Docker para configurar un entorno de Python 3.10.11 orientado a **Ciencia de Datos** con Jupyter, facilitando la gestión de bibliotecas mediante Poetry.
+Este repositorio proporciona una configuración optimizada y lista para usar de un entorno de desarrollo para Python 3.10.11 enfocado en Ciencia de Datos. Utilizando Docker, facilita la creación de un ambiente aislado y reproducible, eliminando las complicaciones de la configuración manual.
+
+### Características Principales:
+
+- **Entorno Dockerizado**: Utiliza Docker para encapsular todas las dependencias y configuraciones necesarias, garantizando la portabilidad y consistencia del entorno de desarrollo.
+  
+- **Integración con Jupyter**: Incluye Jupyter Lab para el análisis interactivo de datos y la creación de documentos reproducibles. 
+
+- **Gestión de Dependencias con Poetry**: Simplifica la gestión de bibliotecas y dependencias de Python con Poetry, facilitando la instalación, actualización y distribución de paquetes.
+
+Este repositorio es ideal para aquellos que desean iniciar rápidamente proyectos de Ciencia de Datos sin preocuparse por la configuración del entorno. ¡Empieza a explorar y desarrollar tus ideas sin obstáculos!
+
 
 ## Requisitos Previos
 
