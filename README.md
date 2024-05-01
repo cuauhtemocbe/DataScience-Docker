@@ -46,6 +46,7 @@ Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, 
 3. Abre la Paleta de Comandos (Command Palette) con `Shift + Ctrl + P` y escribe `Dev Containers: Rebuild and Reopen in Container`. Ejecútalo para construir y levantar el contenedor Docker.
 4. En el explorador de archivos (`Ctrl + Shift + E`), navega hasta la carpeta `notebooks` y abre el archivo `0. Validar-ambiente.ipynb`.
 5. Ejecuta el notebook; al inicio te solicitará seleccionar un kernel, elige Python 3.10.11.
+6. Distruta
 
 ### Configuración con Jupyter Lab (Opción Sencilla)
 
