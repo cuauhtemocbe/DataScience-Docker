@@ -8,6 +8,8 @@ services:
     stdin_open: true
     tty: true
     container_name: datascience-docker
+    ports:
+      - "8888:8888"
     volumes:
       - .:/workspace
     env_file:
