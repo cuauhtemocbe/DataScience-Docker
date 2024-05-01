@@ -71,6 +71,8 @@ Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
     ```
 
 4. Finalmente, abre el siguiente enlace en tu navegador: [http://localhost:8888/lab/tree/notebooks](http://localhost:8888/lab/tree/notebooks)
+5. Navega en el explorador a la carpeta notebooks, y abre prueba el notebook `0-Hello-Pandas.ipynb`.
+6. Disfruta.
 
 ## Agregando nuevas bibliotecas
 
