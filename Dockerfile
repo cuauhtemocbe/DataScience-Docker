@@ -7,6 +7,5 @@ RUN apt-get update && \
 RUN pip install "poetry"
 RUN poetry config virtualenvs.create false
 COPY . .
-ENV PYTHONPATH "${PYTHONPATH}:/workspace/src"
 RUN poetry install
 RUN rm -R *
