@@ -1,4 +1,4 @@
-FROM python:3.10.11
+FROM python:3.12.3-slim
 RUN mkdir workspace
 WORKDIR /workspace
 RUN apt-get update && \
