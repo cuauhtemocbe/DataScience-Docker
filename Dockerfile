@@ -7,5 +7,5 @@ RUN apt-get update && \
 RUN pip install "poetry"
 RUN poetry config virtualenvs.create false
 COPY . .
-RUN poetry install
+RUN poetry install --no-root
 RUN rm -R *
