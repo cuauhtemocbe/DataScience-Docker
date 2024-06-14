@@ -1,13 +1,13 @@
-version: "3.9"
 services:
-  datascience-docker:
+  datascience:
     build:
       context: .
       dockerfile: Dockerfile
+    image: datascience:latest
+    container_name: datascience
     command: "/bin/bash"
     stdin_open: true
     tty: true
-    container_name: datascience-docker
     ports:
       - "8888:8888"
     volumes:
