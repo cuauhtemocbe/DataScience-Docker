@@ -1,6 +1,6 @@
 ## Acerca de este Repositorio
 
-Este repositorio proporciona una configuración optimizada y lista para usar de un entorno de desarrollo para Python 3.10.11 enfocado en Ciencia de Datos. Utilizando Docker, facilita la creación de un ambiente aislado y reproducible, eliminando las complicaciones de la configuración manual.
+Este repositorio proporciona una configuración optimizada y lista para usar de un entorno de desarrollo para Python 3.12.3 enfocado en Ciencia de Datos. Utilizando Docker, facilita la creación de un ambiente aislado y reproducible, eliminando las complicaciones de la configuración manual.
 
 ### Características Principales:
 
@@ -45,7 +45,7 @@ Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, 
 2. Instala la extensión **Dev Containers** desde el Marketplace de VSC.
 3. Abre la Paleta de Comandos (Command Palette) con `Shift + Ctrl + P` y escribe `Dev Containers: Rebuild and Reopen in Container`. Ejecútalo para construir y levantar el contenedor Docker.
 4. En el explorador de archivos (`Ctrl + Shift + E`), navega hasta la carpeta `notebooks` y abre el archivo `Hello-Pandas.ipynb`.
-5. Ejecuta el notebook; al inicio te solicitará seleccionar un kernel, elige Python 3.10.11.
+5. Ejecuta el notebook; al inicio te solicitará seleccionar un kernel, elige Python 3.12.3.
 6. Distruta
 
 ### Configuración con Jupyter Lab (Opción Sencilla)
@@ -61,7 +61,7 @@ Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
 2. Luego, ejecuta el siguiente comando para ingresar al contenedor y utilizar la terminal:
 
     ```bash
-    docker exec -it datascience-docker bash
+    docker exec -it datascience bash
     ```
 
 3. Dentro del contenedor, inicia el servicio de Jupyter Lab con el siguiente comando:
@@ -81,7 +81,7 @@ Si deseas ampliar las capacidades de tu entorno de desarrollo añadiendo nuevas 
 1. Accede al contenedor ejecutando el siguiente comando en tu terminal:
 
     ```bash
-    docker exec -it datascience-docker bash
+    docker exec -it datascience bash
     ```
 
 2. Una vez dentro del contenedor, puedes utilizar Poetry para agregar nuevas bibliotecas. Por ejemplo, si deseas agregar la popular biblioteca de visualización de datos, seaborn, simplemente ejecuta:
