@@ -1,4 +1,4 @@
-FROM python:3.12.3-slim
+FROM python:3.12.6-slim
 RUN mkdir workspace
 WORKDIR /workspace
 RUN apt-get update && \
@@ -8,4 +8,3 @@ RUN pip install "poetry"
 RUN poetry config virtualenvs.create false
 COPY . .
 RUN poetry install --no-root
-RUN rm -R *
