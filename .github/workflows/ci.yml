@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker compose build
+      - name: Run tests with coverage
+        run: docker compose run --rm datascience pytest tests/ -v --cov=src --cov-fail-under=80 --cov-report=term-missing
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker compose build
+      - name: Run ruff check
+        run: docker compose run --rm datascience ruff check src/ tests/
+
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker compose build
+      - name: Run ruff format check
+        run: docker compose run --rm datascience ruff format --check src/ tests/
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker compose build
+      - name: Run mypy
+        run: docker compose run --rm datascience mypy src/ tests/
+
+  lock-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker compose build
+      - name: Check poetry lock
+        run: docker compose run --rm datascience poetry check --lock

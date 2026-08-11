@@ -49,6 +49,7 @@ line-ending = "auto"
 [tool.mypy]
 python_version = "3.13"
 explicit_package_bases = true
+mypy_path = "src"
 strict = true
 warn_unused_ignores = true
 
@@ -56,3 +57,9 @@ warn_unused_ignores = true
 module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.coverage.report]
+fail_under = 80
