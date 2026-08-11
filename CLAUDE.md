@@ -1,11 +1,11 @@
 # DataScience-Docker
 
 Entorno reproducible de desarrollo para proyectos de Ciencia de Datos con
-Python 3.12.6, Poetry, Docker y JupyterLab.
+Python 3.13, Poetry, Docker y JupyterLab.
 
 ## Stack y comandos
 
-- `Dockerfile` construye la imagen de desarrollo.
+- `Dockerfile.dev` construye la imagen de desarrollo.
 - `docker-compose.yml` ejecuta el contenedor `datascience` y monta el repo en
   `/workspace`.
 - `pyproject.toml` es la fuente de verdad para dependencias y configuración de
@@ -13,16 +13,16 @@ Python 3.12.6, Poetry, Docker y JupyterLab.
 - `pytest -q` ejecuta la suite local; el flujo soportado debe ejecutarse dentro
   de Docker cuando sea posible.
 - `docker compose build` construye la imagen.
-- `docker compose run --rm datascience pytest -q` ejecuta los tests en Docker.
-- `docker compose run --rm datascience jupyter lab --ip=0.0.0.0 --allow-root`
-  inicia JupyterLab en el puerto `8888`.
+- `make test` ejecuta los tests en Docker.
+- `make notebook` inicia JupyterLab en el puerto `8888`.
+- `make help` lista todos los comandos disponibles.
 
 ## Reglas de trabajo
 
 - Mantener Docker como el camino reproducible para desarrollo y validación.
 - Escribir o actualizar el test antes de implementar un cambio funcional.
 - Ejecutar la suite completa después de cada cambio relevante.
-- Mantener `pyproject.toml` y la documentación sincronizados con Python 3.12.6.
+- Mantener `pyproject.toml` y la documentación sincronizados con Python 3.13.
 - No introducir capas, abstracciones o servicios que el entorno de un solo
   módulo no necesite; documentar cualquier excepción deliberada.
 - No agregar credenciales reales. `.env` es local y está ignorado; los ejemplos
