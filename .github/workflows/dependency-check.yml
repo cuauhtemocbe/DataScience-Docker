@@ -1,0 +1,43 @@
+name: Dependency validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lock-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry==1.8.4
+
+      - name: Verify lockfile is tracked
+        run: |
+          if ! git ls-files poetry.lock | grep -q poetry.lock; then
+            echo "ERROR: poetry.lock is not tracked by git"
+            exit 1
+          fi
+
+      - name: Check lockfile consistency
+        run: poetry check --lock
+
+      - name: Verify Python version matches manifest
+        run: |
+          PYTHON_VERSION=$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+          echo "CI Python version: $PYTHON_VERSION"
+          # pyproject.toml declares python = "^3.13", so 3.13 is required
+          if [ "$PYTHON_VERSION" != "3.13" ]; then
+            echo "ERROR: CI must use Python 3.13, got $PYTHON_VERSION"
+            exit 1
+          fi
