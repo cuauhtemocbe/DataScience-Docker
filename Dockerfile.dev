@@ -1,0 +1,17 @@
+FROM python:3.13-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    POETRY_VERSION=1.8.4 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VIRTUALENVS_CREATE=false
+
+RUN pip install --no-cache-dir --upgrade pip==26.1.2 && \
+    pip install --no-cache-dir poetry==$POETRY_VERSION
+
+WORKDIR /workspace
+
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-interaction --no-ansi --no-root
+
+CMD ["sleep", "infinity"]

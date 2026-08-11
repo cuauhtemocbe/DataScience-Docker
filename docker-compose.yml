@@ -2,13 +2,18 @@ services:
   datascience:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: datascience:latest
-    container_name: datascience
-    command: "/bin/bash"
-    stdin_open: true
-    tty: true
+      dockerfile: Dockerfile.dev
     ports:
       - "8888:8888"
     volumes:
-      - .:/workspace
+      - ./notebooks:/workspace/notebooks
+      - ./src:/workspace/src
+      - ./tests:/workspace/tests
+      - ./pyproject.toml:/workspace/pyproject.toml
+      - ./poetry.lock:/workspace/poetry.lock
+      - ./README.md:/workspace/README.md
+    environment:
+      - HOME=/tmp
+    env_file:
+      - path: .env
+        required: false

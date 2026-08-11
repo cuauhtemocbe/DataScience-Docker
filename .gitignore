@@ -1,6 +1,8 @@
 .pytest_cache
 .mypy_cache
+.ruff_cache
 __pycache__
+.venv
 .env
-poetry.lock
+.vscode
 opencode.json

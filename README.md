@@ -1,97 +1,132 @@
-## Acerca de este Repositorio
+# DataScience-Docker
 
-Este repositorio proporciona una configuración optimizada y lista para usar de un entorno de desarrollo para Python 3.12.3 enfocado en Ciencia de Datos. Utilizando Docker, facilita la creación de un ambiente aislado y reproducible, eliminando las complicaciones de la configuración manual.
+Entorno reproducible de desarrollo para Ciencia de Datos con Python 3.13, Poetry, Docker y JupyterLab.
 
-### Características Principales:
+## Overview rapido
 
-- **Entorno Dockerizado**: Utiliza Docker para encapsular todas las dependencias y configuraciones necesarias, garantizando la portabilidad y consistencia del entorno de desarrollo.
-  
-- **Integración con Jupyter**: Incluye Jupyter Lab para el análisis interactivo de datos y la creación de documentos reproducibles. 
+1. Instalar Docker (o Python 3.13 + Poetry + make si vas por la via local) -- ver [Instalacion de las herramientas](#instalacion-de-las-herramientas).
+2. Clonar el repositorio.
+3. `make build`
+4. `make up-d`
+5. `make notebook` -- abri [http://localhost:8888](http://localhost:8888).
 
-- **Gestión de Dependencias con Poetry**: Simplifica la gestión de bibliotecas y dependencias de Python con Poetry, facilitando la instalación, actualización y distribución de paquetes.
+Con eso ya tenes el entorno levantado y JupyterLab disponible para trabajar sobre `notebooks/`. Para mas detalle de cada paso, o para la via local sin Docker, ver las secciones siguientes.
 
-Este repositorio es ideal para aquellos que desean iniciar rápidamente proyectos de Ciencia de Datos sin preocuparse por la configuración del entorno. ¡Empieza a explorar y desarrollar tus ideas sin obstáculos!
+## Requisitos previos
 
+Elegi una de las dos formas de trabajar:
 
-## Requisitos Previos
+- **Con Docker (recomendado):** Docker y Docker Compose.
+- **Local (sin Docker):** Python 3.13, [Poetry](https://python-poetry.org/docs/#installation) y `make`.
 
-Antes de comenzar, asegúrate de tener instalados los siguientes programas:
+### Instalacion de las herramientas
 
-1. **Docker**: [Guía de instalación de Docker](https://docs.docker.com/engine/install/)
-2. **Git**: [Guía de instalación de Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-3. **Visual Studio Code (VSC)**: [Descargar Visual Studio Code](https://code.visualstudio.com/download)
+**Docker**
+- Linux: https://docs.docker.com/engine/install/
+- Windows: https://docs.docker.com/desktop/setup/install/windows-install/
 
-La instalación de Visual Studio Code es opcional, pero se recomienda especialmente si tienes experiencia programando. Si eres principiante, puedes optar por no instalarlo.
+**Poetry**
+- Linux: https://python-poetry.org/docs/#installing-with-the-official-installer
+- Windows: https://python-poetry.org/docs/#installing-with-the-official-installer
 
-## Instrucciones de Instalación
+**Make**
+- Linux: viene preinstalado en la mayoria de las distros, o se instala via el gestor de paquetes (ej. `apt install make`, `dnf install make`).
+- Windows: https://community.chocolatey.org/packages/make (via Chocolatey) o https://gnuwin32.sourceforge.net/packages/make.htm
 
-### Clonar el Repositorio
+## Configuracion del entorno
 
-1. Elige una ubicación en tu computadora para clonar el repositorio. Abre tu terminal y ejecuta el siguiente comando:
+### Opcion A: con Docker
 
-    ```bash
-    git clone https://github.com/cuauhtemocbe/DataScience-Docker.git
-    ```
+1. Clonar el repositorio y ubicarte en la raiz del proyecto.
+2. (Opcional) Crear un archivo `.env` en la raiz si necesitas definir variables de entorno. No es obligatorio.
+3. Construir la imagen:
+   ```bash
+   make build
+   ```
+4. Levantar los servicios:
+   ```bash
+   make up
+   ```
+   o en background:
+   ```bash
+   make up-d
+   ```
+5. Levantar JupyterLab:
+   ```bash
+   make notebook
+   ```
+   Esto expone JupyterLab en [http://localhost:8888](http://localhost:8888), sin token (ver nota de seguridad mas abajo).
+6. Para bajar los servicios:
+   ```bash
+   make down
+   ```
 
-    Este comando creará una carpeta llamada **DataScience-Docker** en tu máquina.
+> **Nota de seguridad:** `make notebook` (y `make notebook-local`) levantan JupyterLab sin token ni password, para simplificar la configuracion en local. Es un trade-off aceptable para un entorno de desarrollo local, pero no deberia usarse asi en un servidor expuesto a una red compartida o publica.
 
-2. ⚠️**Importante :⚠️** Crear un archivo `.env` dentro de la carpeta **DataScience-Docker**
+### Opcion B: local con Poetry
 
-### Configuración con Visual Studio Code (Opción Avanzada)
+1. Clonar el repositorio y ubicarte en la raiz del proyecto.
+2. Instalar las dependencias:
+   ```bash
+   make install
+   ```
+   (equivale a `poetry install`)
+3. Trabajar con los notebooks usando Jupyter dentro del entorno de Poetry:
+   ```bash
+   make notebook-local
+   ```
 
-Si prefieres usar Visual Studio Code para desarrollar o ejecutar los notebooks, sigue estos pasos:
+> Para ver todos los comandos disponibles (incluyendo los de testing y linting), correr `make help`.
 
-1. Abre Visual Studio Code y selecciona `File > Open Folder`. Luego elige la carpeta **DataScience-Docker** para abrir el repositorio.
-2. Instala la extensión **Dev Containers** desde el Marketplace de VSC.
-3. Abre la Paleta de Comandos (Command Palette) con `Shift + Ctrl + P` y escribe `Dev Containers: Rebuild and Reopen in Container`. Ejecútalo para construir y levantar el contenedor Docker.
-4. En el explorador de archivos (`Ctrl + Shift + E`), navega hasta la carpeta `notebooks` y abre el archivo `Hello-Pandas.ipynb`.
-5. Ejecuta el notebook; al inicio te solicitará seleccionar un kernel, elige Python 3.12.3.
-6. Distruta
+## Trabajar con los notebooks en VSCode
 
-### Configuración con Jupyter Lab (Opción Sencilla)
+1. Instalar las extensiones de VSCode:
+   - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+   - [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+2. Seleccionar el kernel, segun la opcion de entorno que hayas elegido:
+   - **Local con Poetry:** con las dependencias ya instaladas (`make install`), abri cualquier notebook de `notebooks/`, hace clic en **Select Kernel** y elegi el entorno de Poetry del proyecto. Si no aparece en la lista, obtene la ruta del interprete con:
+     ```bash
+     poetry env info --path
+     ```
+     y agregala manualmente con **Select Kernel -> Select Another Kernel -> Enter interpreter path...**.
+   - **Con Docker:** levanta JupyterLab con `make notebook`. En VSCode, abri la paleta de comandos (`Ctrl+Shift+P` / `Cmd+Shift+P`) y ejecuta **Jupyter: Specify Jupyter Server for Connections**, indicando `http://localhost:8888` (el server corre sin token). Luego selecciona ese servidor como kernel del notebook.
+3. Abri el notebook (`.ipynb`) que quieras trabajar dentro de `notebooks/` y corre las celdas normalmente.
 
-Si prefieres utilizar Jupyter Lab con Docker, sigue estos pasos:
+## Agregando nuevas dependencias
 
-1. Desde la terminal, dentro de la carpeta **DataScience-Docker**, ejecuta el siguiente comando para construir y levantar el contenedor:
+Para agregar bibliotecas al entorno:
 
-    ```bash
-    docker compose up -d
-    ```
+1. Asegurate de que el contenedor este corriendo (`make up-d`).
+2. Ejecuta poetry add dentro del contenedor:
+   ```bash
+   docker compose exec datascience poetry add seaborn
+   ```
+3. Reconstrui la imagen para que los cambios persistan:
+   ```bash
+   make build
+   ```
 
-2. Luego, ejecuta el siguiente comando para ingresar al contenedor y utilizar la terminal:
+## Estructura del repositorio
 
-    ```bash
-    docker exec -it datascience bash
-    ```
+```
+.
+├── notebooks/           # Notebooks de Jupyter
+├── src/                 # Codigo fuente del proyecto
+├── tests/               # Tests automatizados
+├── pyproject.toml       # Dependencias del proyecto (Poetry)
+├── poetry.lock
+├── Dockerfile.dev
+├── docker-compose.yml
+├── Makefile             # Comandos del flujo de trabajo (make help)
+└── .dockerignore
+```
 
-3. Dentro del contenedor, inicia el servicio de Jupyter Lab con el siguiente comando:
+## Variables de entorno
 
-    ```bash
-    jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
-    ```
+- A nivel de repositorio, el `.env` en la raiz es opcional y solo lo usa `docker-compose.yml`.
+- Si necesitas definir variables, copia `.env_example` a `.env` y ajusta los valores.
 
-4. Finalmente, abre el siguiente enlace en tu navegador: [http://localhost:8888/lab/tree/notebooks](http://localhost:8888/lab/tree/notebooks)
-5. Navega en el explorador a la carpeta notebooks, y abre prueba el notebook `Hello-Pandas.ipynb`.
-6. Disfruta.
-
-## Agregando nuevas bibliotecas
-
-Si deseas ampliar las capacidades de tu entorno de desarrollo añadiendo nuevas bibliotecas, sigue estos sencillos pasos:
-
-1. Accede al contenedor ejecutando el siguiente comando en tu terminal:
-
-    ```bash
-    docker exec -it datascience bash
-    ```
-
-2. Una vez dentro del contenedor, puedes utilizar Poetry para agregar nuevas bibliotecas. Por ejemplo, si deseas agregar la popular biblioteca de visualización de datos, seaborn, simplemente ejecuta:
-
-    ```bash
-    poetry add seaborn
-    ```
-
-Con estos pasos, podrás expandir rápidamente las funcionalidades de tu entorno de desarrollo para satisfacer tus necesidades específicas.
-
-## Enlaces de Interés
+## Enlaces de Interes
 
 - **Poetry**: [Sitio oficial de Poetry](https://python-poetry.org/)
+- **JupyterLab**: [Documentacion de JupyterLab](https://jupyterlab.readthedocs.io/)
