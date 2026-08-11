@@ -1,0 +1,12 @@
+#!/bin/sh
+# Pre-commit hook: lint + format check inside Docker.
+# Requires the datascience container to be running.
+set -e
+
+echo "==> Running ruff check..."
+docker compose exec -T datascience ruff check src/ tests/
+
+echo "==> Running ruff format check..."
+docker compose exec -T datascience ruff format --check src/ tests/
+
+echo "==> Pre-commit checks passed."
