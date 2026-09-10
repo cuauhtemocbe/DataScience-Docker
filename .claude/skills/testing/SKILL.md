@@ -51,6 +51,20 @@ Use **red-green-refactor** when building new features or fixing regressions:
 Use TDD for: business rules, domain logic, bug fixes (write a failing reproduction first).  
 Skip TDD for: exploratory spikes, quick prototypes, UI layout with no logic.
 
+### Test case sequencing (ZOMBIES)
+
+When defining which failing tests to write during **Red**, sequence them with the ZOMBIES heuristic instead of jumping straight to the happy path:
+
+- **Z**ero — empty input, no records, nothing to do.
+- **O**ne — the simplest non-trivial case, a single item.
+- **M**any — two or more items; catches ordering, mapping, and aggregation bugs that "One" hides.
+- **B**oundary — min/max values, off-by-one, length limits.
+- **I**nterface — the contract other components rely on (API shape, exported/generated types).
+- **E**xception — invalid input, failure paths, error responses.
+- **S**imple — the straightforward happy path, once the edges are covered.
+
+**Many** is the case most often skipped — a test with a single list element still passes even if the mapping only reads `list[0]` or drops ordering.
+
 ## Test design (before coding)
 
 Before writing a test, define:

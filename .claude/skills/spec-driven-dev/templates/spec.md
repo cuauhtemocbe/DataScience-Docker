@@ -89,3 +89,7 @@ issue:
 ## Implementation Plan
 
 [Link to {feature-name}-plan.md or embed plan here]
+
+## Changelog
+
+<!-- Only used once this spec has shipped (status reached `completed`) and gets touched again. Before editing Requirements/Architecture above, append a dated entry here using delta markers, so the audit trail survives the in-place rewrite. Leave empty until the first post-completion change. -->
