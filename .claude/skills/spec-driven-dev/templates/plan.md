@@ -44,22 +44,26 @@
 
 ## Tasks
 
-### Foundation (Build First)
+**Slicing strategy**: Vertical | Horizontal | Mixed — [1-sentence reason, e.g. "requirements are independent CRUD flows, no shared blocking dependency" or "schema migration blocks all other work"]
+
+<!-- Vertical/Mixed: one section per thin end-to-end slice, ordered by priority/risk -->
+### Slice 1: [scenario name]
 - [ ] **Task 1**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]
   - **Effort**: XS/S/M/L
 
-### Features (Build Second)
+### Slice 2: [scenario name]
 - [ ] **Task 2**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]
   - **Effort**: XS/S/M/L
 
-### Integration (Build Third)
-- [ ] **Task 3**: [Description]
+<!-- Horizontal/Mixed foundation: use these headers instead of/before the slices above -->
+### Foundation (Build First)
+- [ ] **Task**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]

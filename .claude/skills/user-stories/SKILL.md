@@ -201,6 +201,13 @@ Typical components:
 
 **Do not mix DoD with ACs.** If something belongs to the global DoD, do not copy it into each story.
 
+### Chores and spikes are not User Stories
+
+The Fundamental Rule and this DoD apply to **User Stories** — behavior with observable value for a role. `chore` and `spike` are a different issue type, with their own lighter DoD:
+
+- **Chore** (refactor, dependency bump, config, docs, no user-facing behavior change): acceptance criteria are a plain checklist, not Gherkin. A test is required only if the chore touches existing tested behavior — e.g. a refactor must leave the current tests green — not a *new* test for behavior that didn't change.
+- **Spike** (time-boxed investigation, per SPIDR): the acceptance criterion is a decision documented within the timebox (an ADR, a note, a recommendation) — not an automated test, since a spike produces no shippable behavior by itself. If it leads to implementation work, that follow-up is its own User Story and gets the full Fundamental Rule treatment.
+
 ---
 
 ## Non-Functional Requirements (NFRs)

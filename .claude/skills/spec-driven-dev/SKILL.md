@@ -114,12 +114,18 @@ Each phase is a gate. Do not advance to the next phase without explicit user app
 
 **Process**:
 
-1. **Convert plan chunks into tasks**:
+1. **Decide the slicing strategy** before breaking down tasks. Read the spec's Requirements and Architecture sections and check: *does removing any single requirement still leave the others buildable without it?*
+   - **Vertical (default)** — each task is a thin end-to-end path (data + logic + integration) for one scenario, independently demoable and mergeable. Use this when requirements are mostly independent (CRUD-style features, multiple unrelated flows, no single blocking dependency).
+   - **Horizontal (layered)** — Foundation → Features → Integration → Polish. Use this only when there's a genuine shared blocking dependency: most requirements explicitly need one component to exist first (a schema/migration, a core abstraction, new infra/CI plumbing), and building it redundantly per slice would be wasted or inconsistent work.
+   - **Mixed**: build the blocking foundation horizontally first (as its own task or small set of tasks), then slice everything downstream of it vertically.
+   - State the chosen strategy and the 1-sentence reason in the plan file — this is what step 5 shows the user, and they can override it.
+
+2. **Convert plan chunks into tasks**:
    - Each task should be completable in isolation
    - Each task should have clear acceptance criteria
    - Each task should be testable independently
 
-2. **Task format** (in plan file or separate task list):
+3. **Task format** (in plan file or separate task list):
    ```markdown
    - [ ] Task name
      - **Acceptance**: What defines done
@@ -128,19 +134,18 @@ Each phase is a gate. Do not advance to the next phase without explicit user app
      - **Effort**: XS/S/M/L
    ```
 
-3. **Order tasks** by dependencies:
-   - Foundation first (data models, core logic)
-   - Features second (business logic)
-   - Integration third (API, UI)
-   - Polish last (UX improvements, optimizations)
+4. **Order tasks** according to the chosen strategy:
+   - Vertical: order slices by priority/risk (highest-value or riskiest scenario first), not by architectural layer
+   - Horizontal: Foundation first (data models, core logic) → Features second (business logic) → Integration third (API, UI) → Polish last (UX improvements, optimizations)
+   - Mixed: foundation task(s) first, then vertical slices ordered by priority/risk
 
-4. **Create GitHub Issues** (optional but recommended):
+5. **Create GitHub Issues** (optional but recommended):
    - Use detected platform (GitHub/GitLab)
    - Create one issue for the overall feature (links to spec)
    - Optionally create sub-issues for major tasks
    - Use labels to track status
 
-5. **Show task breakdown** to user for approval.
+6. **Show task breakdown** to user for approval, including the slicing strategy and why it was chosen.
 
 **Output**: Task list in plan file + optional GitHub Issues
 
@@ -275,7 +280,28 @@ issue: #123
 ## Implementation Plan
 
 [Link to {feature-name}-plan.md or embed plan here]
+
+## Changelog
+
+<!-- Only used once this spec has shipped (status reached `completed`) and gets touched again. Before editing Requirements/Architecture above, append a dated entry here using delta markers, so the audit trail survives the in-place rewrite. Leave empty until the first post-completion change. -->
 ```
+
+A `Changelog` entry, once one exists, follows this shape:
+
+```markdown
+### YYYY-MM-DD — [One-line summary of the change] (#issue)
+
+**ADDED Requirements**
+- [New requirement introduced]
+
+**MODIFIED Requirements**
+- [Requirement]: [what it said] → [what it says now]
+
+**REMOVED Requirements**
+- [Requirement dropped, and why]
+```
+
+Only include the marker sub-sections that apply — a changelog entry that only added a requirement doesn't need empty `MODIFIED`/`REMOVED` headers.
 
 ---
 
@@ -328,22 +354,26 @@ issue: #123
 
 ## Tasks
 
-### Foundation (Build First)
+**Slicing strategy**: Vertical | Horizontal | Mixed — [1-sentence reason, e.g. "requirements are independent CRUD flows, no shared blocking dependency" or "schema migration blocks all other work"]
+
+<!-- Vertical/Mixed: one section per thin end-to-end slice, ordered by priority/risk -->
+### Slice 1: [scenario name]
 - [ ] **Task 1**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]
   - **Effort**: XS/S/M/L
 
-### Features (Build Second)
+### Slice 2: [scenario name]
 - [ ] **Task 2**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]
   - **Effort**: XS/S/M/L
 
-### Integration (Build Third)
-- [ ] **Task 3**: [Description]
+<!-- Horizontal/Mixed foundation: use these headers instead of/before the slices above -->
+### Foundation (Build First)
+- [ ] **Task**: [Description]
   - **Acceptance**: [What defines done]
   - **Files**: [Expected files]
   - **Tests**: [What to test]
@@ -530,6 +560,7 @@ Before advancing from **Plan** phase, verify:
 
 Before advancing from **Tasks** phase, verify:
 
+- [ ] Slicing strategy (vertical/horizontal/mixed) is stated with a reason
 - [ ] Each task is independently implementable
 - [ ] Each task has clear acceptance criteria
 - [ ] Tasks are ordered by dependencies
@@ -588,6 +619,7 @@ The `specs/` directory is the single source of truth for all features. Keep it i
 | No plan, jump to coding | Spec → Plan → Tasks → Implement |
 | Spec and code out of sync | Update spec when requirements change |
 | Creating issues without MCP | Verify MCP first, guide user to set up if missing |
+| Silently rewriting Requirements on a `completed` spec | Append an ADDED/MODIFIED/REMOVED entry to `## Changelog` first, then edit |
 
 ---
 
@@ -619,11 +651,12 @@ Update specs when:
 
 ### How to Update
 
-1. Edit the spec file directly
+1. Check the spec's `status` in frontmatter *before* touching Requirements/Architecture:
+   - **Not yet `completed`** (`draft` / `approved` / `in-progress`): edit in place, no delta needed — nothing has shipped yet, so there's no history to preserve.
+   - **Already `completed`**: it shipped, so silently rewriting Requirements/Architecture destroys the record of what changed and why. Append a dated entry to `## Changelog` first (`ADDED`/`MODIFIED`/`REMOVED Requirements`, see Spec File Template above), *then* apply the same change to the living sections. Set `status` back to `in-progress` until the new work lands, then to `completed` again.
 2. Update `updated` date in frontmatter
-3. Document changes in a "Changelog" section if major
-4. Update related GitHub Issue with changes
-5. Get approval for significant changes
+3. Update related GitHub Issue with changes
+4. Get approval for significant changes
 
 ### Archiving Completed Specs
 
