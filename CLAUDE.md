@@ -1,7 +1,7 @@
 # DataScience-Docker
 
 Entorno reproducible de desarrollo para proyectos de Ciencia de Datos con
-Python 3.13, Poetry, Docker y JupyterLab.
+Python 3.14, Poetry, Docker y JupyterLab.
 
 ## Stack y comandos
 
@@ -22,7 +22,7 @@ Python 3.13, Poetry, Docker y JupyterLab.
 - Mantener Docker como el camino reproducible para desarrollo y validación.
 - Escribir o actualizar el test antes de implementar un cambio funcional.
 - Ejecutar la suite completa después de cada cambio relevante.
-- Mantener `pyproject.toml` y la documentación sincronizados con Python 3.13.
+- Mantener `pyproject.toml` y la documentación sincronizados con Python 3.14.
 - No introducir capas, abstracciones o servicios que el entorno de un solo
   módulo no necesite; documentar cualquier excepción deliberada.
 - No agregar credenciales reales. `.env` es local y está ignorado; los ejemplos

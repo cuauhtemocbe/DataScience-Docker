@@ -12,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Python 3.13
+      - name: Set up Python 3.14
         uses: actions/setup-python@v7
         with:
-          python-version: "3.13"
+          python-version: "3.14"
 
       - name: Install Poetry
         run: |
@@ -36,8 +36,8 @@ jobs:
         run: |
           PYTHON_VERSION=$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
           echo "CI Python version: $PYTHON_VERSION"
-          # pyproject.toml declares python = "^3.13", so 3.13 is required
-          if [ "$PYTHON_VERSION" != "3.13" ]; then
-            echo "ERROR: CI must use Python 3.13, got $PYTHON_VERSION"
+          # pyproject.toml declares python = "^3.14", so 3.14 is required
+          if [ "$PYTHON_VERSION" != "3.14" ]; then
+            echo "ERROR: CI must use Python 3.14, got $PYTHON_VERSION"
             exit 1
           fi
