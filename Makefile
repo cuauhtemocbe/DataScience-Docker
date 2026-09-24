@@ -43,7 +43,7 @@ install-hooks: ## Habilitar el git hook de pre-commit (lint + format, corre en D
 	git config core.hooksPath .githooks
 	chmod +x .githooks/pre-commit
 
-# --- Local (opcional: fallback sin Docker, requiere Python 3.13 y Poetry) ---
+# --- Local (opcional: fallback sin Docker, requiere Python 3.14 y Poetry) ---
 
 install: ## [local] Instalar dependencias con poetry
 	poetry install

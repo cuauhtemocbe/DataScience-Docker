@@ -1,10 +1,10 @@
 # DataScience-Docker
 
-Entorno reproducible de desarrollo para Ciencia de Datos con Python 3.13, Poetry, Docker y JupyterLab.
+Entorno reproducible de desarrollo para Ciencia de Datos con Python 3.14, Poetry, Docker y JupyterLab.
 
 ## Overview rapido
 
-1. Instalar Docker (o Python 3.13 + Poetry + make si vas por la via local) -- ver [Instalacion de las herramientas](#instalacion-de-las-herramientas).
+1. Instalar Docker (o Python 3.14 + Poetry + make si vas por la via local) -- ver [Instalacion de las herramientas](#instalacion-de-las-herramientas).
 2. Clonar el repositorio.
 3. `make build`
 4. `make up-d`
@@ -17,7 +17,7 @@ Con eso ya tenes el entorno levantado y JupyterLab disponible para trabajar sobr
 Elegi una de las dos formas de trabajar:
 
 - **Con Docker (recomendado):** Docker y Docker Compose.
-- **Local (sin Docker):** Python 3.13, [Poetry](https://python-poetry.org/docs/#installation) y `make`.
+- **Local (sin Docker):** Python 3.14, [Poetry](https://python-poetry.org/docs/#installation) y `make`.
 
 ### Instalacion de las herramientas
 
