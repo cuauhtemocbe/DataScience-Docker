@@ -1,0 +1,64 @@
+name: Dependabot Socket Firewall
+
+# Gatea los PRs que abre Dependabot (issue #37): antes de que alguien los revise a mano,
+# reinstala las dependencias del PR a través de Socket Firewall Free (sfw) y cierra el PR
+# si esa instalación falla. Spike de Poetry para cuauhtemocbe/meta-projects#47.
+#
+# Por qué `poetry export` + `sfw pip install` y no `sfw poetry install`: sfw no soporta Poetry
+# (solo npm/yarn/pnpm/pip/uv/cargo). Verificado con sfw 1.15.2: `sfw poetry install` falla con
+# CERTIFICATE_VERIFY_FAILED porque requests/certifi no confía en la CA del proxy de sfw (sfw exporta
+# SSL_CERT_FILE y PIP_CERT, pero no REQUESTS_CA_BUNDLE). Ese fallo no es un bloqueo del firewall y
+# cerraría todos los PRs. pip sí es un gestor soportado, así que el lock se exporta y se instala con pip.
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  socket-check:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    # Desde 2021-10, los workflows disparados por PRs de Dependabot respetan este bloque
+    # (antes corrían siempre con GITHUB_TOKEN de solo lectura) — sin esto, "gh pr close" abajo
+    # fallaría por falta de permisos.
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # pyproject.toml exige python ^3.14: con otro intérprete `poetry export` emite marcadores
+      # python_version >= "3.14" y pip los ignoraría todos, con lo que sfw no vería ningún paquete.
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+
+      # Misma versión que Dockerfile.dev y dependency-check.yml (1.8.4 incluye `poetry export`;
+      # Poetry 2.x requeriría además el plugin poetry-plugin-export). Se instala antes de
+      # SocketDev/action, por lo que Poetry en sí no pasa por el firewall.
+      - name: Exportar el lock a requirements
+        run: |
+          pip install poetry==1.8.4
+          # --with dev: `poetry install` instala el grupo dev y `export` lo omite por defecto;
+          # sin esto los bumps de ruff/pytest/mypy (la mayoría de los PRs) no pasarían por sfw.
+          poetry export -f requirements.txt --without-hashes --with dev -o /tmp/req.txt
+
+      - uses: SocketDev/action@ba6de6cc0565af1f42295590380973573297e31f # v1.3.2
+        with:
+          mode: firewall-free
+
+      # Solo este paso es continue-on-error: si `poetry export` falla (lock inconsistente) el job
+      # queda en rojo pero el PR no se cierra. Un fallo aquí puede ser un bloqueo del firewall o
+      # cualquier otro error de instalación (red, PyPI caído, wheel que no compila); el paso de
+      # abajo no los distingue.
+      - name: Instalar con firewall
+        id: install
+        run: sfw pip install -r /tmp/req.txt
+        continue-on-error: true
+
+      - name: Cerrar PR si el firewall bloqueó algo
+        if: steps.install.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr close ${{ github.event.pull_request.number }} \
+            --comment "🚫 La instalación con Socket Firewall (\`sfw pip install -r\`) falló: puede ser un bloqueo por comportamiento malicioso/sospechoso o un error de instalación no relacionado (red, PyPI, build). Cerrado automáticamente — revisar el log del job y reabrir manualmente si es un falso positivo."
