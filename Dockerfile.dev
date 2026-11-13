@@ -1,4 +1,4 @@
-FROM python:3.14-slim
+FROM python:3.14.10-slim-trixie@sha256:9aaa474097d094040649f2162a627c0049b408f52138d980916788d80f04802f
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     POETRY_HOME=/opt/poetry \
     POETRY_VIRTUALENVS_CREATE=false
 
-RUN pip install --no-cache-dir --upgrade pip==26.1.2 && \
+RUN pip install --no-cache-dir --upgrade pip==26.2.2 && \
     pip install --no-cache-dir poetry==$POETRY_VERSION
 
 WORKDIR /workspace
